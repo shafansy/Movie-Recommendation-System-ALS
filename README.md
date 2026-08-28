@@ -60,6 +60,22 @@ The original dataset is not included in this repository due to its large size.
 
 ---
 
+# Methodology
+
+The project workflow consists of the following stages:
+
+1. Exploratory Data Analysis
+2. Data Preparation
+3. Feature Engineering
+4. User–Item Matrix Construction
+5. ALS Recommendation Model
+6. Most Popular Baseline
+7. Top-N Recommendation
+8. Model Evaluation
+9. Result Analysis
+
+---
+
 ## Exploratory Data Analysis
 
 Exploratory Data Analysis (EDA) was conducted to understand the characteristics of the MovieLens dataset before developing the recommendation model.
@@ -153,22 +169,6 @@ This user-specific behavior represents **user bias**, which is an important char
 The number of ratings varies across time.
 Rating activity increases substantially during the early and mid-2000s before gradually declining in later years.
 Although the ALS model used in this project does not explicitly incorporate time, the temporal analysis provides useful context regarding changes in user activity over the dataset period.
-
----
-
-# Methodology
-
-The project workflow consists of the following stages:
-
-1. Exploratory Data Analysis
-2. Data Preparation
-3. Feature Engineering
-4. User–Item Matrix Construction
-5. ALS Recommendation Model
-6. Most Popular Baseline
-7. Top-N Recommendation
-8. Model Evaluation
-9. Result Analysis
 
 ---
 
