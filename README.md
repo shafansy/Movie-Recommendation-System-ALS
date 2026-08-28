@@ -259,6 +259,146 @@ Recall@10 measures the proportion of relevant items that were successfully retri
 
 A higher Recall@10 indicates that the recommendation system retrieves a larger proportion of the relevant items.
 
+---
+
+# Results
+
+## Model Performance
+
+The recommendation systems were evaluated on **2,000 users** using a Top-10 recommendation setting.
+
+The evaluation results are shown below:
+
+| Model | Precision@10 | Recall@10 |
+|---|---:|---:|
+| **ALS** | 0.00035 | 0.00015 |
+| **Most Popular** | **0.08105** | **0.04830** |
+
+The results show a substantial performance difference between the two recommendation approaches.
+
+The **Most Popular** model achieved higher values for both Precision@10 and Recall@10 compared with the ALS model.
+
+---
+
+## Result Interpretation
+
+The **Most Popular** model achieved:
+
+- **Precision@10 = 0.08105**
+- **Recall@10 = 0.04830**
+
+Meanwhile, the **ALS** model achieved:
+
+- **Precision@10 = 0.00035**
+- **Recall@10 = 0.00015**
+
+The higher quantitative performance of the Most Popular model is influenced by the characteristics of the MovieLens dataset, which has very high sparsity and a long-tail distribution of user–item interactions.
+
+Because popular movies receive substantially more interactions, recommending globally popular movies has a higher probability of matching movies that appear in users' observed interactions.
+
+---
+
+## Personalization vs. Popularity
+
+Although the Most Popular model achieved better quantitative evaluation results, its recommendations are based on global movie popularity and do not explicitly consider individual user preferences.
+
+In contrast, ALS learns latent patterns from user–item interactions and is designed to provide more personalized recommendations.
+
+Therefore, the results highlight a trade-off between **quantitative recommendation performance and personalization**.
+
+| Model | Recommendation Approach | Strength | Limitation |
+|---|---|---|---|
+| **ALS** | Collaborative Filtering | More personalized recommendations | Sensitive to sparse interaction data |
+| **Most Popular** | Popularity-based | Strong quantitative baseline | Limited personalization |
+
+The results suggest that a popularity-based approach can be highly competitive on a sparse dataset, while collaborative filtering provides a stronger foundation for personalized recommendation.
+
+---
+
+## Key Findings
+
+- The MovieLens dataset has approximately **99.32% user–item matrix sparsity**.
+- User and movie interactions follow a **long-tail distribution**.
+- The **Most Popular** model achieved higher Precision@10 and Recall@10 than ALS in the evaluated experiment.
+- ALS achieved **Precision@10 of 0.00035** and **Recall@10 of 0.00015**.
+- Most Popular achieved **Precision@10 of 0.08105** and **Recall@10 of 0.04830**.
+- The results demonstrate the influence of popularity bias on recommendation performance.
+- ALS provides a more personalized recommendation approach despite its lower quantitative performance in this evaluation.
+- A **hybrid recommendation approach** could potentially balance popularity and personalization.
+
+---
+
+## Recommendations
+
+Based on the evaluation results, future development could explore a **hybrid recommendation system** that combines collaborative filtering and popularity-based recommendations.
+
+Potential improvements include:
+
+- Combining ALS recommendations with popular movie recommendations.
+- Applying popularity-based recommendations for users with limited interaction history.
+- Incorporating movie metadata such as genres.
+- Performing more extensive ALS hyperparameter tuning.
+- Incorporating temporal information.
+- Evaluating additional recommendation metrics such as coverage and diversity.
+- Developing strategies to address the cold-start problem.
+
+A hybrid approach could provide a better balance between **recommendation accuracy, personalization, and coverage**.
+
+---
+
+# Limitations
+
+Several limitations should be considered when interpreting the results:
+
+- The dataset has very high user–item sparsity.
+- Many users have relatively few interactions, creating a cold-start challenge.
+- Movie popularity is highly concentrated, which can introduce popularity bias.
+- The ALS model does not explicitly incorporate temporal information.
+- The evaluation was performed on **2,000 users**.
+- Hyperparameter tuning for ALS was limited.
+- The evaluation is based on historical user interactions rather than explicit human judgments of recommendation relevance.
+- The Most Popular baseline may benefit from the strong popularity pattern present in the dataset.
+
+---
+
+# Future Improvements
+
+Future development could focus on:
+
+1. **ALS Hyperparameter Tuning**
+   - Experiment with different latent factor dimensions.
+   - Optimize regularization parameters.
+   - Test different iteration settings.
+
+2. **Hybrid Recommendation**
+   - Combine collaborative filtering with popularity-based recommendations.
+   - Incorporate content-based features such as movie genres.
+
+3. **Cold-Start Handling**
+   - Develop strategies for new users with limited rating history.
+   - Provide popularity-based recommendations when insufficient interaction data is available.
+
+4. **Time-Aware Recommendation**
+   - Incorporate temporal patterns into recommendation generation.
+
+5. **Additional Evaluation**
+   - Evaluate recommendation coverage.
+   - Measure recommendation diversity.
+   - Compare multiple recommendation algorithms.
+
+---
+
+# Conclusion
+
+This project demonstrates the development and evaluation of a movie recommendation system using **Alternating Least Squares (ALS)** and a **Most Popular** baseline.
+
+The MovieLens dataset presents significant challenges due to its high sparsity, long-tail interaction distribution, and popularity bias.
+
+In the evaluation conducted on 2,000 users with Top-10 recommendations, the Most Popular model achieved higher Precision@10 and Recall@10 than ALS.
+
+However, the result should not be interpreted as Most Popular being universally superior. The baseline relies on global popularity and provides limited personalization, while ALS is designed to capture latent user–item relationships and provide personalized recommendations.
+
+The findings therefore demonstrate an important trade-off between **global recommendation performance and personalization**, motivating the development of hybrid recommendation approaches for future work.
 
 
 
