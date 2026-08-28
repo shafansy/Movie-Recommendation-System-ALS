@@ -1,9 +1,7 @@
 # Movie Recommendation System Using ALS
 ## Overview
 This project focuses on building a movie recommendation system using a collaborative filtering approach with the **Alternating Least Squares (ALS)** algorithm.
-
 The project was developed as part of a Big Data Analytics course and uses the **MovieLens 20M Dataset**, which contains approximately 20 million movie rating interactions from more than 138,000 users and around 131,000 movies.
-
 The project explores the characteristics of large-scale user–item interaction data, including rating distribution, user activity, movie popularity, sparsity, and temporal patterns. These characteristics are then considered in the development of a recommendation system.
 
 Two recommendation approaches are implemented:
@@ -33,7 +31,6 @@ The objectives of this project are to:
 ## Dataset
 
 The dataset used in this project is the **MovieLens 20M Dataset** provided by GroupLens.
-
 The dataset contains approximately:
 
 - 20 million movie ratings
@@ -70,15 +67,12 @@ Exploratory Data Analysis (EDA) was conducted to understand the characteristics 
 ### Dataset Characteristics
 
 The dataset contains approximately 20 million rating interactions involving more than 138,000 users and approximately 131,000 movies.
-
 The median rating is **3.5**, indicating that users tend to provide ratings in the medium-to-high range.
 
 ---
 
 ### Rating Distribution
-
 The rating distribution is not uniform.
-
 Most ratings are concentrated around:
 
 - 3.0
@@ -86,9 +80,7 @@ Most ratings are concentrated around:
 - 4.0
 
 Lower ratings such as 0.5 and 1.0 occur less frequently.
-
 This indicates that users tend to provide relatively positive ratings.
-
 The rating distribution is important for recommendation modeling because the dominance of medium-to-high ratings can introduce rating bias and affect the types of movies recommended by the model.
 
 ---
@@ -96,11 +88,8 @@ The rating distribution is important for recommendation modeling because the dom
 ### User Activity
 
 User activity follows a strong **long-tail distribution**.
-
 Most users provide only a small number of ratings, while a small proportion of users contribute thousands of ratings.
-
 This creates a challenge for personalized recommendation because users with very few interactions provide limited information about their preferences.
-
 These users represent a form of **cold-start challenge** for recommendation systems.
 
 ---
@@ -130,9 +119,7 @@ The popularity distribution demonstrates that a relatively small number of movie
 ### User–Item Matrix Sparsity
 
 The user–item interaction matrix has approximately **99.32% sparsity**.
-
 This means that almost all possible combinations between users and movies do not contain a rating.
-
 The high sparsity is a major characteristic of large-scale recommendation datasets and motivates the use of collaborative filtering methods such as ALS.
 
 ---
@@ -140,9 +127,7 @@ The high sparsity is a major characteristic of large-scale recommendation datase
 ### Rating and Movie Metadata
 
 Rating data was integrated with movie metadata using `movieId`.
-
 This allows numerical recommendation results to be mapped back to movie titles and genres.
-
 The integration improves the interpretability of recommendation results because the model output can be presented using recognizable movie information rather than numerical movie IDs.
 
 ---
@@ -150,9 +135,7 @@ The integration improves the interpretability of recommendation results because 
 ### Average Rating vs. Popularity
 
 The relationship between average movie rating and the number of ratings shows that movie quality and popularity are not necessarily the same.
-
 Movies with only a small number of ratings can have highly variable average ratings, while movies with many ratings tend to have more stable average ratings, generally around 3 to 4.
-
 This indicates that a highly rated movie is not necessarily a highly popular movie.
 
 ---
@@ -160,9 +143,7 @@ This indicates that a highly rated movie is not necessarily a highly popular mov
 ### User Rating Bias
 
 Users show different rating behaviors.
-
 Some users consistently give relatively high ratings, while others tend to be more selective.
-
 This user-specific behavior represents **user bias**, which is an important characteristic in collaborative filtering because the recommendation system needs to account for differences in individual rating behavior.
 
 ---
@@ -170,9 +151,7 @@ This user-specific behavior represents **user bias**, which is an important char
 ### Temporal Rating Pattern
 
 The number of ratings varies across time.
-
 Rating activity increases substantially during the early and mid-2000s before gradually declining in later years.
-
 Although the ALS model used in this project does not explicitly incorporate time, the temporal analysis provides useful context regarding changes in user activity over the dataset period.
 
 ---
@@ -208,8 +187,78 @@ The main steps included:
 
 The attributes used for modeling were:
 
-```text
-userId
-movieId
-rating
-timestamp
+- `userId`
+- `movieId`
+- `rating`
+- `timestamp`
+
+## Feature Engineering
+
+Unlike traditional supervised machine learning problems, feature engineering in collaborative filtering primarily involves transforming the interaction structure.
+
+The original `userId` and `movieId` values were converted into numerical indices.
+
+This transformation is required because ALS operates on numerical matrix representations.
+
+Mappings between the original IDs and numerical indices were also maintained so that model outputs could be mapped back to the original movie identifiers and movie titles.
+
+The final interaction structure was represented as a **sparse user–item matrix**, where:
+
+- Rows represent users.
+- Columns represent movies.
+- Matrix values represent user ratings.
+
+---
+
+## Recommendation Models
+
+### 1. Alternating Least Squares
+
+The main recommendation model uses **Alternating Least Squares (ALS)**.
+
+ALS is a collaborative filtering algorithm that decomposes the user–item interaction matrix into latent representations of users and items.
+
+The model learns latent factors that represent hidden preference patterns between users and movies.
+
+The resulting latent representations are then used to estimate user preferences and generate personalized movie recommendations.
+
+ALS was selected because it is suitable for large-scale and highly sparse interaction datasets.
+
+### 2. Most Popular Recommendation
+
+A popularity-based recommendation model was implemented as a baseline.
+
+The baseline recommends movies based on the number of ratings received by each movie.
+
+Movies with the highest number of ratings are ranked as the most popular recommendations.
+
+This baseline provides a simple reference point for evaluating whether the collaborative filtering approach provides an advantage over recommendations based only on global popularity.
+
+---
+
+## Recommendation Evaluation
+
+The recommendation models were evaluated using **Top-N recommendation metrics**.
+
+The evaluation was performed on **2,000 users** using a recommendation list of 10 movies.
+
+The main evaluation metrics were:
+
+- Precision@10
+- Recall@10
+
+### Precision@10
+
+Precision@10 measures the proportion of recommended movies among the top 10 recommendations that are relevant to the user.
+
+A higher Precision@10 indicates that more of the recommended items are relevant.
+
+### Recall@10
+
+Recall@10 measures the proportion of relevant items that were successfully retrieved within the top 10 recommendations.
+
+A higher Recall@10 indicates that the recommendation system retrieves a larger proportion of the relevant items.
+
+
+
+
